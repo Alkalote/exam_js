@@ -23,6 +23,6 @@ EXAMEN JAVASCRIPT
 
 -Démarrez le serveur en lançant la commande suivante dans le terminal git bash ou dans le terminal intégré d'un IDE :
 
-    -node server.js
+    node server.js
 
 Le site sera accessible sur http://localhost:3000.
