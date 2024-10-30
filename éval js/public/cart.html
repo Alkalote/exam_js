@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css" />
+  <title>Appareils Photo</title>
+</head>
+
+<body>
+  <header>
+
+    <div class="navbar">
+
+
+      <img src="./src/cat.jpg">
+      <div class="main-navbar">
+
+        <a href="./index.html"><span>Produits</span></a>
+        <a href="./cart.html" class="active"><span>Panier</span></a>
+        <a href="#"><span>À propos</span></a>
+
+
+      </div>
+    </div>
+
+  </header>
+  <h1>Votre panier</h1>
+
+  <div class="panier">
+
+  </div>
+  <div class="bgroundForm">
+    <div class="contentForm">
+      <span class="closeForm"></span>
+      <div class="modal-bodyForm">
+        <form name="order" id="order" action="cart.html" method="post">
+          <div class="formData">
+            <label>Prénom</label><br>
+            <input class="text-control" type="text" id="first" name="first" minlength="2" /><br>
+          </div>
+          <div class="formData">
+            <label>Nom</label><br>
+            <input class="text-control" type="text" id="last" name="last" /><br>
+          </div>
+          <div class="formData">
+            <label>E-mail</label><br>
+            <input class="text-control" type="email" id="email" name="email" /><br>
+            
+          </div>
+          <input id="btn-submit" class="btn-submit" type="submit" class="button" value="Commander" />
+        </form>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/form.js"></script>
+</body>
+
+</html>
