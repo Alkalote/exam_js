@@ -52,10 +52,13 @@ socket.on('elements', (elements) => {
         image.src = `${element.image}`;
         nomProd.textContent = `${element.nom_produit}`;
         nomProd.classList.add('gridCart2');
+        nomProd.classList.add('paraForm');
         desc.textContent = `${element.description}`;
         desc.classList.add('gridCart3');
+        desc.classList.add('paraForm');
         prix.textContent = `${element.prix}€`;
         prix.classList.add('gridCart4');
+        prix.classList.add('paraForm');
         divBut.classList.add('gridCart5');
         button.textContent = 'Retirer';
         /* On demande au serveur de supprimer l'élément du panier */
@@ -81,6 +84,7 @@ socket.on('elements', (elements) => {
     const butValid = document.createElement('button');
 
     divPr.classList.add('recapCartTotal');
+    recap.classList.add('para');
     recap.textContent = `Nombre d'éléments: ${totalElem}: Prix total ${prixTotal}€`;
     butValid.classList.add('modalOpen');
     butValid.textContent = 'Passer au payment';
