@@ -1,10 +1,13 @@
-let productsTable = [];
+/* Création du socket io pour la communication au serveur */
 const socket = io();
+
+/* Ouverture de la modale et création/remplissage des éléments pour le produit séléctionné */
 function modalOpen(ev){
 
-    const eventDiv = document.querySelector('.eventDetails');
-    eventDiv.innerHTML='';
-
+    /* On récupère la balise dans le html qui va donner les détails */
+    const elemDiv = document.querySelector('.elemDetails');
+    elemDiv.innerHTML='';
+    /* On créé les éléments */
     const close = document.querySelector('.close');
     const content = document.querySelector('.content');
     const bground = document.querySelector('.bground');
@@ -20,7 +23,7 @@ function modalOpen(ev){
     const specs2 = document.createElement('p');
     const cart = document.createElement('button');
 
-
+    /* On leur applique style et valeur */
     listItem.classList.add('cardExtended');
     title.textContent =`${ev.nom_produit}`;
     title.classList.add('titleCard');
@@ -37,11 +40,12 @@ function modalOpen(ev){
     specs2.textContent=`Connectivité: ${ev.caracteristiques.connectivité}/ Ecran: ${ev.caracteristiques.écran}`;
     cart.classList.add('modalEvent');
     cart.textContent='Ajouter au panier';
+    /* Au click sur ce bouton on ajoute l'élément ev au panier */
     cart.addEventListener('click',function(e){
         addCart(ev);
     })
 
-
+    /* Au click sur ce bouton on ferme la modale */
     close.addEventListener('click',function(event){
 
         bground.style.display = "none";
@@ -49,6 +53,7 @@ function modalOpen(ev){
 
     });
 
+    /* On ajoute le tout au front */
 
     background.appendChild(specs1);
     background.appendChild(specs2);
@@ -61,16 +66,18 @@ function modalOpen(ev){
     listItem.appendChild(image);
     listItem.appendChild(background);
 
-    eventDiv.appendChild(listItem)
+    elemDiv.appendChild(listItem)
 
 }
 
-
+/* On affiche chacun des produits depuis le fichier JSON */
 function showProducts(prods){
 
+    /* On récupère l'élément avec la classe photos */
     const products = document.querySelector('.photos');
     products.innerHTML='';
 
+    /* Pour chaque produit, on effectue sa création */
     prods.forEach(product => {
         
         const prodCard = document.createElement('div');
@@ -90,6 +97,7 @@ function showProducts(prods){
         prix.textContent=`${product.prix}`;
         more.classList.add('modalEvent');
         more.textContent="Plus d'information ici";
+        /* Appel de la fonction d'ouverture de la modale avec la description du produit */
         more.addEventListener('click',function(e){
 
             modalOpen(product);
@@ -108,34 +116,21 @@ function showProducts(prods){
 
 }
 
-
-socket.on('launchCreate', (data) => {
-    // Afficher un message après l'inscription réussie
+/* On alerte l'utilisateur du succès  */
+socket.on('adding', (data) => {
     alert('Ajout réussi');
 });
 
-
+/* Ajout du produit depuis le serveur en envoyant une requète d'ajout avec le produit en paramètre */
 function addCart(product){
 
     socket.emit("addCart", product);
 
 }
 
-
-
-
+/* On récupère les données puis les affiche */
 fetch('json/produits.json')
     .then(response => response.json())
     .then(data => showProducts(data))
     .catch(err => console.error('Problem during data collection from JSON file : ',err));
-
-
-
-function buttonFetch(){
-
-    fetch('json/produits.json')
-    .then(response => response.json())
-    .then(data => showProducts(data))
-    .catch(err => console.error('Problem during data collection from JSON file : ',err));
-}
 
